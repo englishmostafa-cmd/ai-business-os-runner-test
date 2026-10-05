@@ -1,0 +1,29 @@
+name: GitHub Hosted Runner Test
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  runner_test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Runner allocation proof
+        shell: bash
+        run: |
+          echo "=== RUNNER ALLOCATION TEST ==="
+          echo "RUNNER_NAME=$RUNNER_NAME"
+          echo "RUNNER_OS=$RUNNER_OS"
+          echo "RUNNER_ARCH=$RUNNER_ARCH"
+          echo "RUNNER_ENVIRONMENT=$RUNNER_ENVIRONMENT"
+          echo "GITHUB_ACTIONS=$GITHUB_ACTIONS"
+          uname -a
+          echo "=== NETWORK ==="
+          getent hosts github.com || true
+          echo "=== RESULT ==="
+          echo "HOSTED_RUNNER_EXECUTED"
